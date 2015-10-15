@@ -1,10 +1,10 @@
 var express = require('express');
+var app = express();
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var app = express();
+var http = require('http').Server(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -47,5 +47,9 @@ app.use(function(err, req, res, next) {
 	});
 });
 
+var server = http.listen(3000, function () {
+	var host = server.address().address,
+		port = server.address().port;
 
-module.exports = app;
+  console.log('Server listening at http://%s:%s', host, port);
+});
