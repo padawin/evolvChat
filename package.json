@@ -1,0 +1,29 @@
+{
+  "name": "evolv-chat",
+  "version": "0.0.1",
+  "description": "A chat application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/padawin/evolvChat.git"
+  },
+  "keywords": [
+    "chat",
+    "js",
+    "node",
+    "express",
+    "sockets"
+  ],
+  "author": "Ghislain Rodrigues",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/padawin/evolvChat/issues"
+  },
+  "homepage": "https://github.com/padawin/evolvChat#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
