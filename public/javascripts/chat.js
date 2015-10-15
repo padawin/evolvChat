@@ -67,6 +67,7 @@
 
 					socket.on('message', function(data) {
 						console.log(data);
+						B.$id('discussion').innerHTML += data.nickname + ': ' + data.message + '<br />';
 					});
 					return true;
 				},
