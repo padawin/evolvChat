@@ -19,7 +19,11 @@
 	initChatWindow = function () {
 		B.addEvent('message-button', 'click', function () {
 			console.log(B.$id('message-field').value + ' sent by ' + currentUser);
-			socket.emit('message', B.$id('message-field').value);
+			B.Ajax.request(
+				'/send-message',
+				{}, {}, 'POST',
+				'room=' + currentRoom + '&nickname=' + currentUser + '&message=' + B.$id('message-field').value
+			);
 		});
 	};
 

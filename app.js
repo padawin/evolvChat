@@ -75,9 +75,6 @@ app.use(function(err, req, res, next) {
 io.on('connection', function(socket) {
 	socket.join(socket.handshake.query.room);
 	console.log(socket.handshake.query.nickname, socket.handshake.query.room);
-	socket.on('message', function(e) {
-		socket.emit('message', 'Message received');
-	});
 });
 
 var server = http.listen(3000, function () {
