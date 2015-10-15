@@ -1,8 +1,134 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body
+{
+	font-family: Verdana;
 }
 
-a {
-  color: #00B7FF;
+.center
+{
+	text-align: center;
+}
+
+.hidden
+{
+	display: none;
+}
+
+.clear
+{
+	clear: both;
+}
+
+.error
+{
+	border: 1px #373737 solid;
+	border-radius: 5px;
+	background-color: white;
+	color: red;
+	padding: 4px;
+	font-size: 0.7em;
+}
+
+#main
+{
+	border: 1px #373737 solid;
+	border-radius: 7px;
+	min-height: 350px;
+	height: 95vh;
+}
+
+#login-box
+{
+	width: 450px;
+	margin: auto;
+	margin-top: 15vh;
+	border: 1px #373737 solid;
+	border-radius: 7px;
+	background-color: #A39E9E;
+	padding: 7px;
+	font-size: 1.5em;
+}
+
+#login-box label
+{
+	display: inline-block;
+	width: 140px;
+}
+
+#login-box input[type="text"]
+{
+	width: 290px;
+	padding: 3px;
+}
+#login-box input[type="submit"]
+{
+	width: 30%;
+}
+
+#login-box input
+{
+	border-radius: 4px;
+	box-shadow: none;
+	border: 0;
+	font-size: 1em;
+	margin-top: 30px;
+	padding: 4px 0;
+	line-height: 30px;
+}
+
+#left
+{
+	width: 70%;
+	height: 85%;
+	border-right: 1px #373737 solid;
+	float: left;
+}
+
+#header, #discussion
+{
+	padding: 5px;
+}
+
+#header
+{
+	height: 2em;
+}
+
+#discussion
+{
+	border-top: 1px #373737 solid;
+}
+
+#members
+{
+	width: 28%;
+	height: 85%;
+	float: left;
+}
+
+#field-container
+{
+	height: 15%;
+	border-top: 1px #373737 solid;
+	padding: 5px;
+}
+
+#field-container textarea
+{
+	vertical-align: top;
+	display: inline-block;
+	font-size: 0.9em;
+	font-weight: 400;
+	border: 0;
+	width: 250px;
+	height: 85%;
+	width: 80%;
+}
+
+#field-container button
+{
+	display: inline-block;
+	border-width: 0px 0px 0px 1px;
+	height: 85%;
+	float: right;
+	width: 20%;
 }
