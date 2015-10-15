@@ -1,6 +1,7 @@
 (function () {
 	var socketAction,
 		currentUser,
+		currentRoom,
 		initChatWindow,
 		socket,
 		submitEvent;
@@ -18,6 +19,11 @@
 	initChatWindow = function () {
 		B.addEvent('message-button', 'click', function () {
 			console.log(B.$id('message-field').value + ' sent by ' + currentUser);
+			B.Ajax.request(
+				'/send-message',
+				{}, {}, 'POST',
+				'room=' + currentRoom + '&nickname=' + currentUser + '&message=' + B.$id('message-field').value
+			);
 		});
 	};
 
@@ -49,10 +55,25 @@
 				function () {
 					// log in with nickname and room
 					console.log('log in through socket');
+
+					socket = new io.connect(
+						'http://127.0.0.1:3000',
+						{
+							resource: 'A/socket.io',
+							'force new connection': true,
+							query: 'nickname=' + nickname + '&room=' + room
+						}
+					);
+
+					socket.on('message', function(data) {
+						console.log(data);
+						B.$id('discussion').innerHTML += data.nickname + ': ' + data.message + '<br />';
+					});
 					return true;
 				},
 				function () {
 					currentUser = nickname;
+					currentRoom = room;
 					c.url(
 						templates.chatWindow.url,
 						{nickname: currentUser},
