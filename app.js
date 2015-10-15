@@ -49,9 +49,10 @@ app.use(function(err, req, res, next) {
 });
 
 io.on('connection', function(socket) {
-	socket.join(socket.handshake.query.cause);
-	socket.on('stats', function(e) {
-		socket.emit('stats', {foo: 'bar'});
+	socket.join(socket.handshake.query.room);
+	console.log(socket.handshake.query.nickname, socket.handshake.query.room);
+	socket.on('message', function(e) {
+		socket.emit('message', 'Message received');
 	});
 });
 

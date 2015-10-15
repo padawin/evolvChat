@@ -15,18 +15,10 @@
 		}
 	};
 
-	socket = new io.connect(
-		'http://127.0.0.1:3000',
-		{
-			resource: 'A/socket.io',
-			'force new connection': true,
-			query: "cause=" + this.cause
-		}
-	);
-
 	initChatWindow = function () {
 		B.addEvent('message-button', 'click', function () {
 			console.log(B.$id('message-field').value + ' sent by ' + currentUser);
+			socket.emit('message', B.$id('message-field').value);
 		});
 	};
 
@@ -58,6 +50,19 @@
 				function () {
 					// log in with nickname and room
 					console.log('log in through socket');
+
+					socket = new io.connect(
+						'http://127.0.0.1:3000',
+						{
+							resource: 'A/socket.io',
+							'force new connection': true,
+							query: 'nickname=' + nickname + '&room=' + room
+						}
+					);
+
+					socket.on('message', function(data) {
+						console.log(data);
+					});
 					return true;
 				},
 				function () {
