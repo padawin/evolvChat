@@ -1,6 +1,7 @@
 (function () {
 	var socketAction,
 		currentUser,
+		currentRoom,
 		initChatWindow,
 		socket,
 		submitEvent;
@@ -67,6 +68,7 @@
 				},
 				function () {
 					currentUser = nickname;
+					currentRoom = room;
 					c.url(
 						templates.chatWindow.url,
 						{nickname: currentUser},
