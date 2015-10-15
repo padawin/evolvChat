@@ -17,6 +17,30 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// routes
+
+/**
+ * Route to post a message
+ * Return format:
+ * ['OK'] if the message is posted
+ * ['Bad value'] if an error occured
+ */
+app.post('/send-message', function (req, res) {
+	res.set({'Content-Type': 'application/json'});
+	try {
+		io.to(req.body.room).emit('message',
+			{nickname: req.body.nickname, message: req.body.message}
+		);
+		res.json(['OK']);
+	}
+	catch (e) {
+		res.status(400);
+		res.json(['Bad value']);
+	}
+});
+
+// end routes
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
 	var err = new Error('Not Found');
