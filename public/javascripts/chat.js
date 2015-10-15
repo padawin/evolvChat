@@ -15,6 +15,15 @@
 		}
 	};
 
+	socket = new io.connect(
+		'http://127.0.0.1:3000',
+		{
+			resource: 'A/socket.io',
+			'force new connection': true,
+			query: "cause=" + this.cause
+		}
+	);
+
 	initChatWindow = function () {
 		B.addEvent('message-button', 'click', function () {
 			console.log(B.$id('message-field').value + ' sent by ' + currentUser);

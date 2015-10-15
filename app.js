@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -44,6 +45,13 @@ app.use(function(err, req, res, next) {
 	res.render('error', {
 		message: err.message,
 		error: {}
+	});
+});
+
+io.on('connection', function(socket) {
+	socket.join(socket.handshake.query.cause);
+	socket.on('stats', function(e) {
+		socket.emit('stats', {foo: 'bar'});
 	});
 });
 
