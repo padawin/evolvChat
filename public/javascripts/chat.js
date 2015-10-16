@@ -2,10 +2,12 @@
 	var socketAction,
 		currentUser,
 		currentRoom,
+		host,
 		initChatWindow,
 		socket,
 		submitEvent;
 
+	host = location.protocol.concat('//').concat(window.location.hostname);
 
 	socketAction = function (action, success, error) {
 		if (action()) {
@@ -57,7 +59,7 @@
 					console.log('log in through socket');
 
 					socket = new io.connect(
-						'http://127.0.0.1:3000',
+						host,
 						{
 							resource: 'A/socket.io',
 							'force new connection': true,
