@@ -18,26 +18,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
+var messageRoutes = require('./routes/message')(io);
 
-/**
- * Route to post a message
- * Return format:
- * ['OK'] if the message is posted
- * ['Bad value'] if an error occured
- */
-app.post('/send-message', function (req, res) {
-	res.set({'Content-Type': 'application/json'});
-	try {
-		io.to(req.body.room).emit('message',
-			{nickname: req.body.nickname, message: req.body.message}
-		);
-		res.json(['OK']);
-	}
-	catch (e) {
-		res.status(400);
-		res.json(['Bad value']);
-	}
-});
+app.use('/api/message', messageRoutes);
 
 // end routes
 
