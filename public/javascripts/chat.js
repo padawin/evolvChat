@@ -20,9 +20,9 @@
 		B.addEvent('message-button', 'click', function () {
 			console.log(B.$id('message-field').value + ' sent by ' + currentUser);
 			B.Ajax.request(
-				'/send-message',
+				'/api/message/' + currentRoom + '/' + currentUser,
 				{}, {}, 'POST',
-				'room=' + currentRoom + '&nickname=' + currentUser + '&message=' + B.$id('message-field').value
+				'message=' + B.$id('message-field').value
 			);
 		});
 	};
