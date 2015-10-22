@@ -79,12 +79,7 @@ loader.executeModule('main', 'c', 'templates', 'ViewManager', function (c, templ
 				function () {
 					currentUser = nickname;
 					currentRoom = room;
-					c.url(
-						templates.chatWindow.url,
-						{nickname: currentUser},
-						B.$id('main'),
-						initChatWindow
-					);
+					ViewManager.loadChatRoom(currentUser, currentRoom);
 				});
 
 			B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
