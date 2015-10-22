@@ -56,7 +56,12 @@ function (c, templates, events) {
 					console.log(B.$id('message-field').value + ' sent by ' + user);
 					B.Ajax.request(
 						'/api/message/' + room + '/' + user,
-						{}, {}, 'POST',
+						{
+							200: function (response) {
+								B.$id('message-field').value = '';
+								B.$id('message-field').focus();
+							}
+						}, {}, 'POST',
 						'message=' + B.$id('message-field').value
 					);
 				});
