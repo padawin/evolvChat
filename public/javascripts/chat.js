@@ -89,5 +89,5 @@ function (templates, ViewManager, events) {
 		e.preventDefault();
 	};
 
-	B.addEvent(B.$id('login-form'), 'submit', submitLoginEvent);
+	ViewManager.init();
 });
