@@ -26,17 +26,6 @@ function (templates, ViewManager, events) {
 		}
 	};
 
-	initChatWindow = function () {
-		B.addEvent('message-button', 'click', function () {
-			console.log(B.$id('message-field').value + ' sent by ' + currentUser);
-			B.Ajax.request(
-				'/api/message/' + currentRoom + '/' + currentUser,
-				{}, {}, 'POST',
-				'message=' + B.$id('message-field').value
-			);
-		});
-	};
-
 	submitLoginEvent = function (e) {
 		var nickname = B.$id('nickname').value.trim(),
 			room = B.$id('room').value.trim(),
