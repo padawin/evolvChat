@@ -9,9 +9,7 @@ function (templates, ViewManager, events) {
 		currentUser,
 		currentRoom,
 		host,
-		initChatWindow,
-		socket,
-		submitLoginEvent;
+		socket;
 
 	host = window.location.protocol.concat('//')
 		.concat(window.location.hostname)
