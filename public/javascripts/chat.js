@@ -73,10 +73,7 @@ loader.executeModule('main', 'c', 'templates', 'ViewManager', function (c, templ
 						}
 					);
 
-					socket.on('message', function(data) {
-						console.log(data);
-						B.$id('discussion').innerHTML += data.nickname + ': ' + data.message + '<br />';
-					});
+					socket.on('message', ViewManager.messageReceived);
 					return true;
 				},
 				function () {
