@@ -47,13 +47,11 @@ function (c, templates, events) {
 			);
 		},
 		messageReceived: function(data) {
-			console.log(data);
 			B.$id('discussion').innerHTML += data.nickname + ': ' + data.message + '<br />';
 		},
 		loadChatRoom: function (user, room) {
 			function initChatRoom () {
 				B.addEvent('message-button', 'click', function () {
-					console.log(B.$id('message-field').value + ' sent by ' + user);
 					B.Ajax.request(
 						'/api/message/' + room + '/' + user,
 						{
