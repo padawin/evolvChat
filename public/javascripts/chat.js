@@ -9,7 +9,7 @@ loader.executeModule('main', 'c', 'templates', function (c, templates) {
 		host,
 		initChatWindow,
 		socket,
-		submitEvent;
+		submitLoginEvent;
 
 	host = window.location.protocol.concat('//')
 		.concat(window.location.hostname)
@@ -35,7 +35,7 @@ loader.executeModule('main', 'c', 'templates', function (c, templates) {
 		});
 	};
 
-	submitEvent = function (e) {
+	submitLoginEvent = function (e) {
 		var nickname = B.$id('nickname').value.trim(),
 			room = B.$id('room').value.trim(),
 			valid = true;
@@ -90,10 +90,10 @@ loader.executeModule('main', 'c', 'templates', function (c, templates) {
 					);
 				});
 
-			B.removeEvent(B.$id('login-form'), 'submit', submitEvent);
+			B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
 		}
 		e.preventDefault();
 	};
 
-	B.addEvent(B.$id('login-form'), 'submit', submitEvent);
+	B.addEvent(B.$id('login-form'), 'submit', submitLoginEvent);
 });
