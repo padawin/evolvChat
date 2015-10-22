@@ -2,7 +2,7 @@ if (typeof (require) != 'undefined') {
 	var loader = require('./loader.js').loader;
 }
 
-loader.executeModule('main', 'c', 'templates', function (c, templates) {
+loader.executeModule('main', 'c', 'templates', 'ViewManager', function (c, templates, ViewManager) {
 	var socketAction,
 		currentUser,
 		currentRoom,
