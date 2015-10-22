@@ -2,14 +2,14 @@ if (typeof (require) != 'undefined') {
 	var loader = require('./loader.js').loader;
 }
 
-loader.executeModule('main', 'c', 'templates', function (c, templates) {
+loader.executeModule('main',
+'ViewManager', 'events',
+function (ViewManager, events) {
 	var socketAction,
 		currentUser,
 		currentRoom,
 		host,
-		initChatWindow,
-		socket,
-		submitLoginEvent;
+		socket;
 
 	host = window.location.protocol.concat('//')
 		.concat(window.location.hostname)
@@ -24,41 +24,10 @@ loader.executeModule('main', 'c', 'templates', function (c, templates) {
 		}
 	};
 
-	initChatWindow = function () {
-		B.addEvent('message-button', 'click', function () {
-			console.log(B.$id('message-field').value + ' sent by ' + currentUser);
-			B.Ajax.request(
-				'/api/message/' + currentRoom + '/' + currentUser,
-				{}, {}, 'POST',
-				'message=' + B.$id('message-field').value
-			);
-		});
-	};
-
-	submitLoginEvent = function (e) {
-		var nickname = B.$id('nickname').value.trim(),
-			room = B.$id('room').value.trim(),
-			valid = true;
-
-		if (nickname == '') {
-			B.removeClass('nickname-error', 'hidden');
-			valid = false;
-		}
-		else {
-			B.addClass('nickname-error', 'hidden');
-			valid = true;
-		}
-
-		if (room == '') {
-			B.removeClass('room-error', 'hidden');
-			valid = false;
-		}
-		else {
-			B.addClass('room-error', 'hidden');
-			valid = valid && true;
-		}
-
-		if (valid) {
+	events.on(
+		'connection',
+		null,
+		function (nickname, room) {
 			socketAction(
 				function () {
 					// log in with nickname and room
@@ -73,27 +42,18 @@ loader.executeModule('main', 'c', 'templates', function (c, templates) {
 						}
 					);
 
-					socket.on('message', function(data) {
-						console.log(data);
-						B.$id('discussion').innerHTML += data.nickname + ': ' + data.message + '<br />';
-					});
+					socket.on('message', ViewManager.messageReceived);
 					return true;
 				},
 				function () {
 					currentUser = nickname;
 					currentRoom = room;
-					c.url(
-						templates.chatWindow.url,
-						{nickname: currentUser},
-						B.$id('main'),
-						initChatWindow
-					);
-				});
+					ViewManager.loadChatRoom(currentUser, currentRoom);
 
-			B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
+				}
+			);
 		}
-		e.preventDefault();
-	};
+	);
 
-	B.addEvent(B.$id('login-form'), 'submit', submitLoginEvent);
+	ViewManager.init();
 });
