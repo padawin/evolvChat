@@ -7,7 +7,9 @@
 		socket,
 		submitEvent;
 
-	host = location.protocol.concat('//').concat(window.location.hostname);
+	host = window.location.protocol.concat('//')
+		.concat(window.location.hostname)
+		.concat(':').concat(window.location.port);
 
 	socketAction = function (action, success, error) {
 		if (action()) {
