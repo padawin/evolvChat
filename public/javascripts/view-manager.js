@@ -47,24 +47,29 @@ function (c, templates, events) {
 			);
 		},
 		messageReceived: function(data) {
-			console.log(data);
 			B.$id('discussion').innerHTML += data.nickname + ': ' + data.message + '<br />';
 		},
 		loadChatRoom: function (user, room) {
+			function initChatRoom () {
+				B.addEvent('message-button', 'click', function () {
+					B.Ajax.request(
+						'/api/message/' + room + '/' + user,
+						{
+							200: function (response) {
+								B.$id('message-field').value = '';
+								B.$id('message-field').focus();
+							}
+						}, {}, 'POST',
+						'message=' + B.$id('message-field').value
+					);
+				});
+			}
+
 			c.url(
 				templates.chatWindow.url,
 				{nickname: user},
 				B.$id('main'),
-				function () {
-					B.addEvent('message-button', 'click', function () {
-						console.log(B.$id('message-field').value + ' sent by ' + user);
-						B.Ajax.request(
-							'/api/message/' + room + '/' + user,
-							{}, {}, 'POST',
-							'message=' + B.$id('message-field').value
-						);
-					});
-				}
+				initChatRoom
 			);
 		}
 	};
