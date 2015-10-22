@@ -26,30 +26,10 @@ function (templates, ViewManager, events) {
 		}
 	};
 
-	submitLoginEvent = function (e) {
-		var nickname = B.$id('nickname').value.trim(),
-			room = B.$id('room').value.trim(),
-			valid = true;
-
-		if (nickname == '') {
-			B.removeClass('nickname-error', 'hidden');
-			valid = false;
-		}
-		else {
-			B.addClass('nickname-error', 'hidden');
-			valid = true;
-		}
-
-		if (room == '') {
-			B.removeClass('room-error', 'hidden');
-			valid = false;
-		}
-		else {
-			B.addClass('room-error', 'hidden');
-			valid = valid && true;
-		}
-
-		if (valid) {
+	events.on(
+		'connection',
+		null,
+		function (nickname, room) {
 			socketAction(
 				function () {
 					// log in with nickname and room
@@ -71,12 +51,11 @@ function (templates, ViewManager, events) {
 					currentUser = nickname;
 					currentRoom = room;
 					ViewManager.loadChatRoom(currentUser, currentRoom);
-				});
 
-			B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
+				}
+			);
 		}
-		e.preventDefault();
-	};
+	);
 
 	ViewManager.init();
 });
