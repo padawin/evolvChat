@@ -36,7 +36,7 @@ function (c, templates, events) {
 						}
 
 						if (valid) {
-							events.fire('connection');
+							events.fire('connection', [nickname, room]);
 							B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
 						}
 						e.preventDefault();
