@@ -1,4 +1,8 @@
-(function () {
+if (typeof (require) != 'undefined') {
+	var loader = require('./loader.js').loader;
+}
+
+loader.executeModule('main', 'c', 'templates', function (c, templates) {
 	var socketAction,
 		currentUser,
 		currentRoom,
@@ -92,4 +96,4 @@
 	};
 
 	B.addEvent(B.$id('login-form'), 'submit', submitEvent);
-})();
+});

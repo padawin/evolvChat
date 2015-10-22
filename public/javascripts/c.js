@@ -1,4 +1,8 @@
-(function () {
+if (typeof (require) != 'undefined') {
+	var loader = require('./loader.js').loader;
+}
+
+loader.addModule('c', function () {
 	var c = {},
 		regexExpression = /\[\[(.+?)]]/g,
 		savedTemplates = {};
@@ -31,5 +35,5 @@
 		callback && callback();
 	};
 
-	window.c = c;
-})();
+	return c;
+});
