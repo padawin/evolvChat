@@ -3,8 +3,8 @@ if (typeof (require) != 'undefined') {
 }
 
 loader.executeModule('main',
-'templates', 'ViewManager', 'events',
-function (templates, ViewManager, events) {
+'ViewManager', 'events',
+function (ViewManager, events) {
 	var socketAction,
 		currentUser,
 		currentRoom,
