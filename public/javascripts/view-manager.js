@@ -6,7 +6,7 @@ loader.addModule('ViewManager',
 'c', 'templates', 'events',
 function (c, templates, events) {
 	return {
-		init: function () {
+		loadLogin: function () {
 			c.url(
 				templates.loginWindow.url,
 				{},

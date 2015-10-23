@@ -55,5 +55,5 @@ function (ViewManager, events) {
 		}
 	);
 
-	ViewManager.init();
+	ViewManager.loadLogin();
 });
