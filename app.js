@@ -25,8 +25,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
 var messageRoutes = require('./routes/message')(io);
+var userRoutes = require('./routes/user')(io);
 
 app.use('/api/message', messageRoutes);
+app.use('/api/user', userRoutes);
 
 // end routes
 
@@ -59,11 +61,6 @@ app.use(function(err, req, res, next) {
 		message: err.message,
 		error: {}
 	});
-});
-
-io.on('connection', function(socket) {
-	socket.join(socket.handshake.query.room);
-	console.log(socket.handshake.query.nickname, socket.handshake.query.room);
 });
 
 var server = http.listen(3000, function () {
