@@ -28,29 +28,39 @@ function (ViewManager, events) {
 		'login',
 		null,
 		function (nickname, room) {
-			socketAction(
-				function () {
-					// log in with nickname and room
-					console.log('log in through socket');
+			B.Ajax.request(
+				'/api/user/login',
+				{
+					200: function (response) {
+						socketAction(
+							function () {
+								// log in with nickname and room
+								console.log('log in through socket');
 
-					socket = new io.connect(
-						host,
-						{
-							resource: 'A/socket.io',
-							'force new connection': true,
-							query: 'nickname=' + nickname + '&room=' + room
-						}
-					);
+								socket = new io.connect(
+									host,
+									{
+										resource: 'A/socket.io',
+										'force new connection': true,
+										query: 'nickname=' + nickname + '&room=' + room
+									}
+								);
+								socket.on('message', ViewManager.messageReceived);
+								return true;
+							},
+							function () {
 
-					socket.on('message', ViewManager.messageReceived);
-					return true;
-				},
-				function () {
-					currentUser = nickname;
-					currentRoom = room;
-					ViewManager.loadChatRoom(currentUser, currentRoom);
-
-				}
+								currentUser = nickname;
+								currentRoom = room;
+								ViewManager.loadChatRoom(currentUser, currentRoom);
+							}
+						);
+					},
+					401: function () {
+						ViewManager.usernameAlreadyTaken();
+					}
+				}, {}, 'POST',
+				'nickname=' + nickname
 			);
 		}
 	);
