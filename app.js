@@ -16,7 +16,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({secret: '!2Y5UF<\"!w|&>&jo\(keEw{}v}2HGF{H>9CeB_Xp@Y\3`M*D3S3yj*2OTvEx+O$bM^zo_{J7)D/;i`N(oCM`?jk#+tLWy:J~h6N'}));
+app.use(session({
+	secret: '!2Y5UF<\"!w|&>&jo\(keEw{}v}2HGF{H>9CeB_Xp@Y\3`M*D3S3yj*2OTvEx+O$bM^zo_{J7)D/;i`N(oCM`?jk#+tLWy:J~h6N',
+	resave: true,
+	saveUninitialized: true
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
