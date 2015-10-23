@@ -29,7 +29,7 @@ function (c, templates, events) {
 		}
 
 		if (valid) {
-			events.fire('connection', [nickname, room]);
+			events.fire('login', [nickname, room]);
 		}
 		e.preventDefault();
 	};

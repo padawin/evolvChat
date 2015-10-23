@@ -25,7 +25,7 @@ function (ViewManager, events) {
 	};
 
 	events.on(
-		'connection',
+		'login',
 		null,
 		function (nickname, room) {
 			socketAction(
