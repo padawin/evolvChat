@@ -55,5 +55,20 @@ function (ViewManager, events) {
 		}
 	);
 
-	ViewManager.loadLogin();
+	B.Ajax.request(
+		'/api/user/enter',
+		{
+			200: function (response) {
+				var response = JSON.parse(response.responseText);
+				if (!response) {
+					// new user
+					ViewManager.loadLogin();
+				}
+				else {
+					// logged in user
+					ViewManager.loadChatRoom(response.nickname, response.room);
+				}
+			}
+		}, {}, 'POST', {}
+	);
 });
