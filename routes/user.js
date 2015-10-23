@@ -15,7 +15,7 @@ module.exports = function (io) {
 		);
 
 		io.to(socket.handshake.query.room).emit('users-list',
-			chat.getUsersNicknames()
+			chat.getUsersNicknames(socket.handshake.query.room)
 		);
 	});
 
