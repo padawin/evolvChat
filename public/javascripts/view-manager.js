@@ -49,6 +49,7 @@ function (c, templates, events) {
 			B.removeClass('nickname-taken-error', 'hidden');
 		},
 		messageReceived: function(data) {
+			// @TODO use template
 			B.$id('discussion').innerHTML += data.nickname + ': ' + data.message + '<br />';
 		},
 		loadChatRoom: function (user, room) {
