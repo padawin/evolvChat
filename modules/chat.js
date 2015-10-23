@@ -4,7 +4,7 @@ var chat = {},
 
 // Handle deletion of user from a room
 chat.addUser = function (room, user) {
-	if (!(room in users)) {
+	if (!(room in users[2])) {
 		users[2][room] = [];
 	}
 	users[0][user[0].id] = user;
