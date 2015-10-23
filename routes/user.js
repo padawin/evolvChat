@@ -49,7 +49,7 @@ module.exports = function (io) {
 	// When a user load the page, to know if a session exists
 	router.post('/logout', function(req, res) {
 		res.setHeader('content-type', 'application/json');
-		delete red.session.user;
+		delete req.session.user;
 		res.json(['OK']);
 	});
 
