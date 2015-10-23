@@ -1,9 +1,15 @@
 var express = require('express'),
+	chat = require('../modules/chat'),
 	router = express.Router();
 
 module.exports = function (io) {
 	io.on('connection', function(socket) {
 		socket.join(socket.handshake.query.room);
+
+		chat.addUser(
+			socket.handshake.query.room,
+			[socket, socket.handshake.query.nickname]
+		);
 	});
 
 	// When a user load the page, to know if a session exists
