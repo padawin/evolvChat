@@ -63,6 +63,11 @@ function (c, templates, events) {
 						'message=' + B.$id('message-field').value
 					);
 				});
+
+				B.addEvent('logout', 'click', function (e) {
+					events.fire('logout');
+					e.preventDefault();
+				});
 			}
 
 			c.url(

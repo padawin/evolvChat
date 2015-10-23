@@ -55,6 +55,19 @@ function (ViewManager, events) {
 		}
 	);
 
+	events.on(
+		'logout',
+		null,
+		function () {
+			B.Ajax.request(
+				'/api/user/logout',
+				{
+					200: ViewManager.loadLogin
+				}, {}, 'POST', {}
+			);
+		}
+	);
+
 	B.Ajax.request(
 		'/api/user/enter',
 		{
