@@ -5,6 +5,36 @@ if (typeof (require) != 'undefined') {
 loader.addModule('ViewManager',
 'c', 'templates', 'events',
 function (c, templates, events) {
+	var submitLoginEvent = function (e) {
+		var nickname = B.$id('nickname').value.trim(),
+			room = B.$id('room').value.trim(),
+			valid = true;
+
+		if (nickname == '') {
+			B.removeClass('nickname-error', 'hidden');
+			valid = false;
+		}
+		else {
+			B.addClass('nickname-error', 'hidden');
+			valid = true;
+		}
+
+		if (room == '') {
+			B.removeClass('room-error', 'hidden');
+			valid = false;
+		}
+		else {
+			B.addClass('room-error', 'hidden');
+			valid = valid && true;
+		}
+
+		if (valid) {
+			events.fire('connection', [nickname, room]);
+			B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
+		}
+		e.preventDefault();
+	};
+
 	return {
 		loadLogin: function () {
 			c.url(
@@ -12,36 +42,6 @@ function (c, templates, events) {
 				{},
 				B.$id('main'),
 				function () {
-					var submitLoginEvent = function (e) {
-						var nickname = B.$id('nickname').value.trim(),
-							room = B.$id('room').value.trim(),
-							valid = true;
-
-						if (nickname == '') {
-							B.removeClass('nickname-error', 'hidden');
-							valid = false;
-						}
-						else {
-							B.addClass('nickname-error', 'hidden');
-							valid = true;
-						}
-
-						if (room == '') {
-							B.removeClass('room-error', 'hidden');
-							valid = false;
-						}
-						else {
-							B.addClass('room-error', 'hidden');
-							valid = valid && true;
-						}
-
-						if (valid) {
-							events.fire('connection', [nickname, room]);
-							B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
-						}
-						e.preventDefault();
-					};
-
 					B.addEvent(B.$id('login-form'), 'submit', submitLoginEvent);
 				}
 			);
