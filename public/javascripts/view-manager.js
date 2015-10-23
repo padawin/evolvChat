@@ -45,6 +45,9 @@ function (c, templates, events) {
 				}
 			);
 		},
+		usernameAlreadyTaken: function () {
+			B.removeClass('nickname-taken-error', 'hidden');
+		},
 		messageReceived: function(data) {
 			B.$id('discussion').innerHTML += data.nickname + ': ' + data.message + '<br />';
 		},
