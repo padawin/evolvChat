@@ -19,8 +19,8 @@ chat.getUserByName = function (name) {
 chat.getUsersNicknames = function (room) {
 	var usersList = [],
 		u;
-	for (u in users[1][room]) {
-		usersList.push(u[1]);
+	for (u = 0; u < users[2][room].length; u++) {
+		usersList.push(users[2][room][u][1]);
 	}
 
 	return usersList;
