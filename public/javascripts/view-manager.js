@@ -83,6 +83,16 @@ function (c, templates, events) {
 		},
 		updateUsersList: function (data) {
 			console.log(data);
+		},
+		userLeft: function (data) {
+			// @TODO use template
+			B.$id('discussion').innerHTML += data.nickname + ' left the room.' + '<br />';
+		},
+		newUser: function (data) {
+			// @TODO use template
+			if (B.$id('discussion')) {
+				B.$id('discussion').innerHTML += data.nickname + ' entered the room.' + '<br />';
+			}
 		}
 	};
 });

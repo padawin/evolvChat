@@ -50,6 +50,8 @@ function (ViewManager, events) {
 							function () {
 								socket.on('message', ViewManager.messageReceived);
 								socket.on('users-list', ViewManager.updateUsersList);
+								socket.on('user-connected', ViewManager.newUser);
+								socket.on('user-left', ViewManager.userLeft);
 
 								currentUser = nickname;
 								currentRoom = room;
@@ -74,7 +76,8 @@ function (ViewManager, events) {
 				'/api/user/logout',
 				{
 					200: ViewManager.loadLogin
-				}, {}, 'POST', {}
+				}, {}, 'POST',
+				'room=' + currentRoom
 			);
 		}
 	);

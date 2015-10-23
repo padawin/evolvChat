@@ -17,6 +17,10 @@ module.exports = function (io) {
 		io.to(socket.handshake.query.room).emit('users-list',
 			chat.getUsersNicknames(socket.handshake.query.room)
 		);
+
+		io.to(socket.handshake.query.room).emit('user-connected',
+			{nickname: socket.handshake.query.nickname}
+		);
 	});
 
 	// When a user load the page, to know if a session exists
@@ -49,6 +53,12 @@ module.exports = function (io) {
 	// When a user load the page, to know if a session exists
 	router.post('/logout', function(req, res) {
 		res.setHeader('content-type', 'application/json');
+
+		io.to(req.body.room).emit('user-left',
+			{nickname: req.session.user}
+		);
+
+		// @TODO delete from chat module too
 		delete req.session.user;
 		res.json(['OK']);
 	});
