@@ -2,7 +2,7 @@ var express = require('express'),
 	router = express.Router();
 
 module.exports = function (io) {
-		/* POST a message from user in room. */
+	/* POST a message from user in room. */
 	router.post('/:room/:uid', function(req, res) {
 		res.setHeader('content-type', 'application/json');
 

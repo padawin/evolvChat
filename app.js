@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var session = require('express-session');
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -15,12 +16,19 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+	secret: '!2Y5UF<\"!w|&>&jo\(keEw{}v}2HGF{H>9CeB_Xp@Y\3`M*D3S3yj*2OTvEx+O$bM^zo_{J7)D/;i`N(oCM`?jk#+tLWy:J~h6N',
+	resave: true,
+	saveUninitialized: true
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
 var messageRoutes = require('./routes/message')(io);
+var userRoutes = require('./routes/user')(io);
 
 app.use('/api/message', messageRoutes);
+app.use('/api/user', userRoutes);
 
 // end routes
 
@@ -53,11 +61,6 @@ app.use(function(err, req, res, next) {
 		message: err.message,
 		error: {}
 	});
-});
-
-io.on('connection', function(socket) {
-	socket.join(socket.handshake.query.room);
-	console.log(socket.handshake.query.nickname, socket.handshake.query.room);
 });
 
 var server = http.listen(3000, function () {

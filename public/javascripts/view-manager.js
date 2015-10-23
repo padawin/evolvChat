@@ -6,7 +6,7 @@ loader.addModule('ViewManager',
 'c', 'templates', 'events',
 function (c, templates, events) {
 	return {
-		init: function () {
+		loadLogin: function () {
 			c.url(
 				templates.loginWindow.url,
 				{},
@@ -62,6 +62,11 @@ function (c, templates, events) {
 						}, {}, 'POST',
 						'message=' + B.$id('message-field').value
 					);
+				});
+
+				B.addEvent('logout', 'click', function (e) {
+					events.fire('logout');
+					e.preventDefault();
 				});
 			}
 
