@@ -45,10 +45,10 @@ function (ViewManager, events) {
 										query: 'nickname=' + nickname + '&room=' + room
 									}
 								);
-								socket.on('message', ViewManager.messageReceived);
 								return true;
 							},
 							function () {
+								socket.on('message', ViewManager.messageReceived);
 
 								currentUser = nickname;
 								currentRoom = room;
