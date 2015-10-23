@@ -2,6 +2,9 @@ var express = require('express'),
 	chat = require('../modules/chat'),
 	router = express.Router();
 
+// @TODO Some code should be in controllers, the routes should just be a mapping
+// @TODO Use HTTP response codes
+
 module.exports = function (io) {
 	io.on('connection', function(socket) {
 		socket.join(socket.handshake.query.room);
