@@ -30,7 +30,6 @@ function (c, templates, events) {
 
 		if (valid) {
 			events.fire('connection', [nickname, room]);
-			B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
 		}
 		e.preventDefault();
 	};
@@ -69,6 +68,8 @@ function (c, templates, events) {
 					e.preventDefault();
 				});
 			}
+
+			B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
 
 			c.url(
 				templates.chatWindow.url,
