@@ -49,6 +49,7 @@ function (ViewManager, events) {
 							},
 							function () {
 								socket.on('message', ViewManager.messageReceived);
+								socket.on('users-list', ViewManager.updateUsersList);
 
 								currentUser = nickname;
 								currentRoom = room;

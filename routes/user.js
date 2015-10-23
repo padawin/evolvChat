@@ -10,6 +10,10 @@ module.exports = function (io) {
 			socket.handshake.query.room,
 			[socket, socket.handshake.query.nickname]
 		);
+
+		io.to(socket.handshake.query.room).emit('users-list',
+			chat.getUsersNicknames()
+		);
 	});
 
 	// When a user load the page, to know if a session exists

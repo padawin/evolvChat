@@ -80,6 +80,9 @@ function (c, templates, events) {
 				B.$id('main'),
 				initChatRoom
 			);
+		},
+		updateUsersList: function (data) {
+			console.log(data);
 		}
 	};
 });
