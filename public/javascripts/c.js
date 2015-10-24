@@ -37,13 +37,12 @@ loader.addModule('c', function () {
 	};
 
 	_template = function (template, data) {
-		var match = regexTemplate.exec(template);
-		while (match !== null) {
+		var match;
+		template = template.replace(regexTemplate, function () {
 			// parse match
-			_parseMatch(match[1]);
-			template = template.replace(match[0], data[match[1]]);
-			match = regexTemplate.exec(template);
-		}
+			_parseMatch(arguments[1]);
+			return data[arguments[1]];
+		});
 
 		return template;
 	}
