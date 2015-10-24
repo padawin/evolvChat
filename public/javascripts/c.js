@@ -20,10 +20,22 @@ loader.addModule('c', function () {
 		 */
 		var regexExpression = /^([a-zA-Z_$][0-9a-zA-Z_$]*)(?:\.([a-zA-Z_$][0-9a-zA-Z_$]*))*$/g,
 			regexEach = /^each\s+([a-zA-Z_$][0-9a-zA-Z_$]*)\s+on\s+([a-zA-Z_$\-0-9]+)$/,
-			regexIf = /^if\s+([a-zA-Z_$][0-9a-zA-Z_$]*)\s+then\s+([a-zA-Z_$\-0-9]+)$/;
-		console.log(regexExpression.exec(template));
-		console.log(regexEach.exec(template));
-		console.log(regexIf.exec(template));
+			regexIf = /^if\s+([a-zA-Z_$][0-9a-zA-Z_$]*)\s+then\s+([a-zA-Z_$\-0-9]+)$/,
+			match;
+
+		if ((match = regexExpression.exec(template)) !== null) {
+			console.log(match);
+		}
+		else if ((match = regexEach.exec(template)) !== null) {
+			console.log(match);
+
+		}
+		else if ((match = regexIf.exec(template)) !== null) {
+			console.log(match);
+		}
+		else {
+			throw "Invalid template expression " + template;
+		}
 	};
 
 	_url = function (templateName, data, callback) {
