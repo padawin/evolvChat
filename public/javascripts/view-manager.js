@@ -73,7 +73,9 @@ function (c, templates, events) {
 				});
 			}
 
-			B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
+			if (B.$id('login-form')) {
+				B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
+			}
 
 			c.url(
 				templates.chatWindow.url,
