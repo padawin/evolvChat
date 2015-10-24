@@ -26,13 +26,13 @@ loader.addModule('c', function () {
 
 	c.url = function (url, data, container, callback) {
 		if (savedTemplates[url]) {
-			c.append(c.template(xhr.response, data, callback), container, callback);
+			_append(c.template(xhr.response, data, callback), container, callback);
 			return;
 		}
 
 		B.Ajax.request(url, {
 			200: function (xhr) {
-				c.append(c.template(xhr.response, data), container, callback);
+-				_.append(c.template(xhr.response, data), container, callback);
 			}
 		});
 	};
@@ -49,7 +49,7 @@ loader.addModule('c', function () {
 		return template;
 	}
 
-	c.append = function (template, container, callback) {
+	function _append(template, container, callback) {
 		container.innerHTML = template;
 		callback && callback();
 	};
