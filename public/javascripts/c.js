@@ -4,7 +4,7 @@ if (typeof (require) != 'undefined') {
 
 loader.addModule('c', function () {
 	var c = {},
-		regexExpression = /\[\[(.+?)]]/g,
+		regexTemplate = /\[\[(.+?)]]/g,
 		savedTemplates = {};
 
 	c.url = function (url, data, container, callback) {
@@ -21,10 +21,10 @@ loader.addModule('c', function () {
 	};
 
 	c.template = function (template, data, callback) {
-		var match = regexExpression.exec(template);
+		var match = regexTemplate.exec(template);
 		while (match !== null) {
 			template = template.replace(match[0], data[match[1]]);
-			match = regexExpression.exec(template);
+			match = regexTemplate.exec(template);
 		}
 
 		return template;
