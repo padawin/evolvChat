@@ -45,7 +45,10 @@ module.exports = function (io) {
 			res.sendStatus(401);
 		}
 		else {
-			req.session.user = req.body.nickname;
+			req.session.user = {
+				nickname: req.body.nickname,
+				room: req.body.room
+			}
 			res.json(['OK']);
 		}
 	});
