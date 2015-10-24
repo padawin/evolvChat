@@ -54,5 +54,9 @@ loader.addModule('c', function () {
 		callback && callback();
 	};
 
+	c.init = function (templates) {
+		savedTemplates = templates;
+	};
+
 	return c;
 });

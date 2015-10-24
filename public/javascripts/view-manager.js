@@ -5,6 +5,8 @@ if (typeof (require) != 'undefined') {
 loader.addModule('ViewManager',
 'c', 'templates', 'events',
 function (c, templates, events) {
+	c.init(templates);
+
 	var submitLoginEvent = function (e) {
 		var nickname = B.$id('nickname').value.trim(),
 			room = B.$id('room').value.trim(),
