@@ -25,32 +25,45 @@ function (ViewManager, events) {
 	};
 
 	events.on(
-		'connection',
+		'login',
 		null,
 		function (nickname, room) {
-			socketAction(
-				function () {
-					// log in with nickname and room
-					console.log('log in through socket');
+			B.Ajax.request(
+				'/api/user/login',
+				{
+					200: function (response) {
+						socketAction(
+							function () {
+								// log in with nickname and room
+								console.log('log in through socket');
 
-					socket = new io.connect(
-						host,
-						{
-							resource: 'A/socket.io',
-							'force new connection': true,
-							query: 'nickname=' + nickname + '&room=' + room
-						}
-					);
+								socket = new io.connect(
+									host,
+									{
+										resource: 'A/socket.io',
+										'force new connection': true,
+										query: 'nickname=' + nickname + '&room=' + room
+									}
+								);
+								return true;
+							},
+							function () {
+								socket.on('message', ViewManager.messageReceived);
+								socket.on('users-list', ViewManager.updateUsersList);
+								socket.on('user-connected', ViewManager.newUser);
+								socket.on('user-left', ViewManager.userLeft);
 
-					socket.on('message', ViewManager.messageReceived);
-					return true;
-				},
-				function () {
-					currentUser = nickname;
-					currentRoom = room;
-					ViewManager.loadChatRoom(currentUser, currentRoom);
-
-				}
+								currentUser = nickname;
+								currentRoom = room;
+								ViewManager.loadChatRoom(currentUser, currentRoom);
+							}
+						);
+					},
+					401: function () {
+						ViewManager.usernameAlreadyTaken();
+					}
+				}, {}, 'POST',
+				'nickname=' + nickname
 			);
 		}
 	);
@@ -63,7 +76,8 @@ function (ViewManager, events) {
 				'/api/user/logout',
 				{
 					200: ViewManager.loadLogin
-				}, {}, 'POST', {}
+				}, {}, 'POST',
+				'room=' + currentRoom
 			);
 		}
 	);

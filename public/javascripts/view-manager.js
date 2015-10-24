@@ -5,6 +5,35 @@ if (typeof (require) != 'undefined') {
 loader.addModule('ViewManager',
 'c', 'templates', 'events',
 function (c, templates, events) {
+	var submitLoginEvent = function (e) {
+		var nickname = B.$id('nickname').value.trim(),
+			room = B.$id('room').value.trim(),
+			valid = true;
+
+		if (nickname == '') {
+			B.removeClass('nickname-error', 'hidden');
+			valid = false;
+		}
+		else {
+			B.addClass('nickname-error', 'hidden');
+			valid = true;
+		}
+
+		if (room == '') {
+			B.removeClass('room-error', 'hidden');
+			valid = false;
+		}
+		else {
+			B.addClass('room-error', 'hidden');
+			valid = valid && true;
+		}
+
+		if (valid) {
+			events.fire('login', [nickname, room]);
+		}
+		e.preventDefault();
+	};
+
 	return {
 		loadLogin: function () {
 			c.url(
@@ -12,41 +41,15 @@ function (c, templates, events) {
 				{},
 				B.$id('main'),
 				function () {
-					var submitLoginEvent = function (e) {
-						var nickname = B.$id('nickname').value.trim(),
-							room = B.$id('room').value.trim(),
-							valid = true;
-
-						if (nickname == '') {
-							B.removeClass('nickname-error', 'hidden');
-							valid = false;
-						}
-						else {
-							B.addClass('nickname-error', 'hidden');
-							valid = true;
-						}
-
-						if (room == '') {
-							B.removeClass('room-error', 'hidden');
-							valid = false;
-						}
-						else {
-							B.addClass('room-error', 'hidden');
-							valid = valid && true;
-						}
-
-						if (valid) {
-							events.fire('connection', [nickname, room]);
-							B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
-						}
-						e.preventDefault();
-					};
-
 					B.addEvent(B.$id('login-form'), 'submit', submitLoginEvent);
 				}
 			);
 		},
+		usernameAlreadyTaken: function () {
+			B.removeClass('nickname-taken-error', 'hidden');
+		},
 		messageReceived: function(data) {
+			// @TODO use template
 			B.$id('discussion').innerHTML += data.nickname + ': ' + data.message + '<br />';
 		},
 		loadChatRoom: function (user, room) {
@@ -70,12 +73,27 @@ function (c, templates, events) {
 				});
 			}
 
+			B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
+
 			c.url(
 				templates.chatWindow.url,
 				{nickname: user},
 				B.$id('main'),
 				initChatRoom
 			);
+		},
+		updateUsersList: function (data) {
+			console.log(data);
+		},
+		userLeft: function (data) {
+			// @TODO use template
+			B.$id('discussion').innerHTML += data.nickname + ' left the room.' + '<br />';
+		},
+		newUser: function (data) {
+			// @TODO use template
+			if (B.$id('discussion')) {
+				B.$id('discussion').innerHTML += data.nickname + ' entered the room.' + '<br />';
+			}
 		}
 	};
 });
