@@ -6,7 +6,9 @@ loader.addModule('c', function () {
 	var c = {},
 		_parseMatch,
 		regexTemplate = /\[\[(.+?)]]/g,
-		savedTemplates = {};
+		savedTemplates = {},
+		_template,
+		_url;
 
 	_parseMatch = function (template) {
 		/*
@@ -24,20 +26,17 @@ loader.addModule('c', function () {
 		console.log(regexIf.exec(template));
 	};
 
-	c.url = function (url, data, container, callback) {
-		if (savedTemplates[url]) {
-			_append(c.template(xhr.response, data, callback), container, callback);
-			return;
-		}
-
-		B.Ajax.request(url, {
+	_url = function (templateName, data, callback) {
+		B.Ajax.request(savedTemplates[templateName].url, {
 			200: function (xhr) {
--				_.append(c.template(xhr.response, data), container, callback);
+				var html = xhr.responseText;
+				savedTemplates[templateName].html = html;
+				callback(_template(html, data));
 			}
 		});
 	};
 
-	c.template = function (template, data, callback) {
+	_template = function (template, data) {
 		var match = regexTemplate.exec(template);
 		while (match !== null) {
 			// parse match
@@ -49,14 +48,21 @@ loader.addModule('c', function () {
 		return template;
 	}
 
-	function _append(template, container, callback) {
-		container.innerHTML = template;
-		callback && callback();
-	};
-
 	c.init = function (templates) {
 		savedTemplates = templates;
 	};
+
+	c.compile = function (templateName, data, callback) {
+		if (!(templateName in savedTemplates)) {
+			throw "Invalid template";
+		}
+		else if ('html' in savedTemplates[templateName]) {
+			callback(_template(savedTemplates[templateName].html, data));
+		}
+		else if ('url' in savedTemplates[templateName]) {
+			_url(templateName, data, callback);
+		}
+	}
 
 	return c;
 });

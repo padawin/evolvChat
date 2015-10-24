@@ -38,11 +38,11 @@ function (c, templates, events) {
 
 	return {
 		loadLogin: function () {
-			c.url(
-				templates.loginWindow.url,
-				{},
-				B.$id('main'),
-				function () {
+			c.compile(
+				'loginWindow',
+				null,
+				function (html) {
+					B.$id('main').innerHTML = html;
 					B.addEvent(B.$id('login-form'), 'submit', submitLoginEvent);
 				}
 			);
@@ -79,11 +79,13 @@ function (c, templates, events) {
 				B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
 			}
 
-			c.url(
-				templates.chatWindow.url,
+			c.compile(
+				'chatWindow',
 				{nickname: user},
-				B.$id('main'),
-				initChatRoom
+				function (html) {
+					B.$id('main').innerHTML = html;
+					initChatRoom();
+				}
 			);
 		},
 		updateUsersList: function (data) {
