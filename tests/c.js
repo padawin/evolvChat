@@ -13,16 +13,13 @@ loader.executeModule('cTests', 'c', 'Tests', function (c, Tests) {
 		},
 
 		/**
-		 * Test to compile a template from an url
+		 * Test to compile a static template from an url
 		 */
 
 		/**
-		 * Test to compile a template from a html
+		 * Test to compile a static template from a html
 		 */
 
-		/**
-		 * Test to compile a static template
-		 */
 
 		/**
 		 * Test to compile a template with a simple expression
@@ -46,6 +43,14 @@ loader.executeModule('cTests', 'c', 'Tests', function (c, Tests) {
 
 		/**
 		 * Test to compile a template with a if call
+		 */
+
+		/**
+		 * Test to compile a template with an invalid placeholder
+		 */
+
+		/**
+		 * Test to compile a template with an valid placeholder but invalid command
 		 */
 
 		/**
