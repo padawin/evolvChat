@@ -22,7 +22,15 @@ loader.executeModule('cTests', 'c', 'Tests', function (c, Tests) {
 		/**
 		 * Test to compile a static template from a html
 		 */
+		function () {
+			c.init({
+				htmlTemplate: {
+					html: '<p>This is a HTML static template</p>'
+				}
+			});
 
+			Tests.equals(c.compile('htmlTemplate'), '<p>This is a HTML static template</p>');
+		},
 
 		/**
 		 * Test to compile a template with a simple expression
