@@ -147,6 +147,18 @@ loader.addModule('Tests', function () {
 		return equals;
 	};
 
+	tests.notImplemented = function(testName) {
+		// always returns false
+
+		_dumpResult(
+			'The tests ',
+			testName,
+			' were implemented',
+			false
+		);
+		return false;
+	};
+
 	tests.addSuite = function(name, suite) {
 		// Add a suite to the collection to be tested. A suite has a name
 		// and an array of functions

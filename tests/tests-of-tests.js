@@ -57,6 +57,20 @@ loader.executeModule('TestsOfTests', 'Tests', function (Tests) {
 			Tests.equals(obj, {hello: 'world'});
 			Tests.equals(bool, true);
 			Tests.equals(func, function() {return 'Hello World';});
-		}
+		},
+
+		function() {
+			//Test if the method Tests.notImplemented exists
+
+			Tests.isA(Tests.notImplemented, 'function');
+		},
+
+		// This always fails, this is the point of this method
+		//~function() {
+			//~//Test of the method Tests.notImplemented
+
+			//~Tests.equals(Tests.notImplemented(), false);
+		//~}
+
 	]);
 });
