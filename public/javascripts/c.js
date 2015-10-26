@@ -24,14 +24,21 @@ loader.addModule('c', function () {
 			match;
 
 		if ((match = regexExpression.exec(template)) !== null) {
-			console.log(match);
+			return function () {
+				return match;
+			};
 		}
 		else if ((match = regexEach.exec(template)) !== null) {
-			console.log(match);
+			return function () {
+				return match;
+			};
 
 		}
 		else if ((match = regexIf.exec(template)) !== null) {
 			console.log(match);
+			return function () {
+				return match;
+			};
 		}
 		else {
 			throw "Invalid template expression " + template;
@@ -52,8 +59,7 @@ loader.addModule('c', function () {
 		var match;
 		template = template.replace(regexTemplate, function () {
 			// parse match
-			_parseMatch(arguments[1]);
-			return data[arguments[1]];
+			return _parseMatch(arguments[1])(data);
 		});
 
 		return template;
