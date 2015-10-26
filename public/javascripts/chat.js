@@ -63,7 +63,7 @@ function (ViewManager, events) {
 						ViewManager.usernameAlreadyTaken();
 					}
 				}, {}, 'POST',
-				'nickname=' + nickname
+				'nickname=' + nickname + '&room=' + room
 			);
 		}
 	);

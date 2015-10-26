@@ -5,6 +5,8 @@ if (typeof (require) != 'undefined') {
 loader.addModule('ViewManager',
 'c', 'templates', 'events',
 function (c, templates, events) {
+	c.init(templates);
+
 	var submitLoginEvent = function (e) {
 		var nickname = B.$id('nickname').value.trim(),
 			room = B.$id('room').value.trim(),
@@ -36,11 +38,11 @@ function (c, templates, events) {
 
 	return {
 		loadLogin: function () {
-			c.url(
-				templates.loginWindow.url,
-				{},
-				B.$id('main'),
-				function () {
+			c.compile(
+				'loginWindow',
+				null,
+				function (html) {
+					B.$id('main').innerHTML = html;
 					B.addEvent(B.$id('login-form'), 'submit', submitLoginEvent);
 				}
 			);
@@ -73,13 +75,17 @@ function (c, templates, events) {
 				});
 			}
 
-			B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
+			if (B.$id('login-form')) {
+				B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
+			}
 
-			c.url(
-				templates.chatWindow.url,
+			c.compile(
+				'chatWindow',
 				{nickname: user},
-				B.$id('main'),
-				initChatRoom
+				function (html) {
+					B.$id('main').innerHTML = html;
+					initChatRoom();
+				}
 			);
 		},
 		updateUsersList: function (data) {
