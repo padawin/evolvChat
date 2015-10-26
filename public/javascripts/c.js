@@ -24,8 +24,19 @@ loader.addModule('c', function () {
 			match;
 
 		if ((match = regexExpression.exec(template)) !== null) {
-			return function () {
-				return match;
+			if (match[0] !== template) {
+				throw "Invalid expression '" + template + "'";
+			}
+
+			match = match[0].split('.');
+			return function(data) {
+				var result = data, current;
+				while (match.length) {
+					if ((current = match.shift()) != '') {
+						result = result[current];
+					}
+				}
+				return result;
 			};
 		}
 		else if ((match = regexEach.exec(template)) !== null) {
