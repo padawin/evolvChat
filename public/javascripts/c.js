@@ -78,7 +78,7 @@ loader.addModule('c', function () {
 			};
 		}
 		else {
-			throw "Invalid template expression " + template;
+			throw "Invalid template expression \"" + template + "\"";
 		}
 	};
 
