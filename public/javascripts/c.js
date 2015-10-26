@@ -25,13 +25,14 @@ loader.addModule('c', function () {
 			match;
 
 		if ((match = regexExpression.exec(template)) !== null) {
-			if (match[0] !== template) {
-				throw "Invalid expression '" + template + "'";
-			}
-
-			match = match[0].split('.');
 			return function(data) {
 				var result = data, current;
+
+				if (match[0] !== template) {
+					throw "Invalid expression '" + template + "'";
+				}
+
+				match = match[0].split('.');
 				while (match.length) {
 					if ((current = match.shift()) != '') {
 						result = result[current];
