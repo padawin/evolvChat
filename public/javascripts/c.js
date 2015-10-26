@@ -25,7 +25,7 @@ loader.addModule('c', function () {
 			match;
 
 		if ((match = regexExpression.exec(template)) !== null) {
-			return function(data) {
+			return function (data) {
 				var result = data, current;
 
 				if (match[0] !== template) {

@@ -6,13 +6,13 @@ if (typeof (require) != 'undefined') {
 
 loader.executeModule('TestsOfTests', 'Tests', function (Tests) {
 	Tests.addSuite('tests', [
-		function() {
+		function () {
 			//Test if the method Tests.isA exists (A bit recursive logic...)
 
 			Tests.isA(Tests.isA, 'function');
 		},
 
-		function() {
+		function () {
 			//Test of the method Tests.isA
 
 			var integer = 1,
@@ -21,7 +21,7 @@ loader.executeModule('TestsOfTests', 'Tests', function (Tests) {
 				array = ['hello', 'world'],
 				obj = {hello: 'world'},
 				bool = true,
-				func = function() {return 'Hello World';};
+				func = function () {return 'Hello World';};
 
 			Tests.isA(integer, 'number');
 			Tests.isA(float, 'number');
@@ -33,13 +33,13 @@ loader.executeModule('TestsOfTests', 'Tests', function (Tests) {
 			Tests.isA(new func(), 'object');
 		},
 
-		function() {
+		function () {
 			//Test if the method Tests.equals exists
 
 			Tests.isA(Tests.equals, 'function');
 		},
 
-		function() {
+		function () {
 			//Test of the method Tests.isA
 
 			var integer = 1,
@@ -48,7 +48,7 @@ loader.executeModule('TestsOfTests', 'Tests', function (Tests) {
 				array = ['hello', 'world'],
 				obj = {hello: 'world'},
 				bool = true,
-				func = function() {return 'Hello World';};
+				func = function () {return 'Hello World';};
 
 			Tests.equals(integer, 1);
 			Tests.equals(float, 1.1);
@@ -56,17 +56,17 @@ loader.executeModule('TestsOfTests', 'Tests', function (Tests) {
 			Tests.equals(array, ['hello', 'world']);
 			Tests.equals(obj, {hello: 'world'});
 			Tests.equals(bool, true);
-			Tests.equals(func, function() {return 'Hello World';});
+			Tests.equals(func, function () {return 'Hello World';});
 		},
 
-		function() {
+		function () {
 			//Test if the method Tests.notImplemented exists
 
 			Tests.isA(Tests.notImplemented, 'function');
 		},
 
 		// This always fails, this is the point of this method
-		//~function() {
+		//~function () {
 			//~//Test of the method Tests.notImplemented
 
 			//~Tests.equals(Tests.notImplemented(), false);

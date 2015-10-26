@@ -7,7 +7,7 @@ loader.executeModule('cTests', 'c', 'Tests', function (c, Tests) {
 		/**
 		 * Test if the methods exist
 		 */
-		function() {
+		function () {
 			Tests.isA(c.init, 'function');
 			Tests.isA(c.compile, 'function');
 		},

@@ -72,7 +72,7 @@ loader.addModule('Tests', function () {
 		}
 	}
 
-	tests.equals = function(val, expected) {
+	tests.equals = function (val, expected) {
 		// Return true if val and expected are strictly equals
 
 		var equals,
@@ -117,7 +117,7 @@ loader.addModule('Tests', function () {
 		return equals;
 	};
 
-	tests.isA = function(val, type) {
+	tests.isA = function (val, type) {
 		// Returns true if val is of type type.
 
 		var typeVal = typeof (val),
@@ -147,7 +147,7 @@ loader.addModule('Tests', function () {
 		return equals;
 	};
 
-	tests.notImplemented = function(testName) {
+	tests.notImplemented = function (testName) {
 		// always returns false
 
 		_dumpResult(
@@ -159,14 +159,14 @@ loader.addModule('Tests', function () {
 		return false;
 	};
 
-	tests.addSuite = function(name, suite) {
+	tests.addSuite = function (name, suite) {
 		// Add a suite to the collection to be tested. A suite has a name
 		// and an array of functions
 
 		suites.push([name, suite]);
 	};
 
-	tests.runTests = function(d) {
+	tests.runTests = function (d) {
 		// Main method to run the tests, will define output from d (display
 		// element). If d is a function (for example console.log), at the
 		// moment to display the results, output will be invoked.
