@@ -15,6 +15,9 @@ loader.executeModule('cTests', 'c', 'Tests', function (c, Tests) {
 		/**
 		 * Test to compile a static template from an url
 		 */
+		function () {
+			Tests.notImplemented('Call template from URL');
+		},
 
 		/**
 		 * Test to compile a static template from a html
