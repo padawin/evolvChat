@@ -59,13 +59,13 @@ loader.addModule('c', function () {
 	};
 
 	_url = function (templateName, data, callback) {
+		var html;
 		B.Ajax.request(savedTemplates[templateName].url, {
 			200: function (xhr) {
-				var html = xhr.responseText;
-				savedTemplates[templateName].html = html;
-				callback(_template(html, data));
+				html = xhr.responseText;
 			}
-		});
+		}, {}, 'GET', null, {async: false});
+		savedTemplates[templateName].html = html;
 	};
 
 	_template = function (template, data) {
@@ -83,14 +83,26 @@ loader.addModule('c', function () {
 	};
 
 	c.compile = function (templateName, data, callback) {
+		var compiledTemplate;
 		if (!(templateName in savedTemplates)) {
 			throw "Invalid template";
 		}
-		else if ('html' in savedTemplates[templateName]) {
-			callback(_template(savedTemplates[templateName].html, data));
+		else if ('url' in savedTemplates[templateName] && !('html' in savedTemplates[templateName])) {
+			_url(templateName, data);
 		}
-		else if ('url' in savedTemplates[templateName]) {
-			_url(templateName, data, callback);
+
+		if ('html' in savedTemplates[templateName]) {
+			compiledTemplate = _template(savedTemplates[templateName].html, data);
+		}
+		else {
+			throw "A template needs at least an url or a html body";
+		}
+
+		if (callback) {
+			callback(compiledTemplate);
+		}
+		else {
+			return compiledTemplate;
 		}
 	}
 
