@@ -42,8 +42,24 @@ loader.addModule('c', function () {
 			};
 		}
 		else if ((match = regexEach.exec(template)) !== null) {
-			return function () {
-				return match;
+			// match[1] -> data to loop on
+			// match[2] -> name of the variable in each loop
+			// match[3] -> template to display for each data loop
+			return function (data) {
+				var loopable = data[match[1]],
+					d, result = '', dataLoop;
+
+				if (typeof(data[match[1]]) != 'object') {
+					throw "Object or array expected, " + typeof(data[match[1]]) + " got";
+				}
+
+				for (d in loopable) {
+					dataLoop = {};
+					dataLoop[match[2]] = loopable[d];
+					result += c.compile(match[3], dataLoop);
+				}
+
+				return result;
 			};
 
 		}
