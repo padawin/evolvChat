@@ -15,11 +15,12 @@ loader.addModule('c', function () {
 		 * allowed commands:
 		 * expression
 		 * expression.attribute
-		 * each expression on template
+		 * each expression on as loopElement template
+		 * 		eg each users as user on userDesc
 		 * if expression then template
 		 */
 		var regexExpression = /^[a-zA-Z_$][0-9a-zA-Z_$]*(?:\.[a-zA-Z_$][0-9a-zA-Z_$]*)*$/g,
-			regexEach = /^each\s+([a-zA-Z_$][0-9a-zA-Z_$]*)\s+on\s+([a-zA-Z_$\-0-9]+)$/,
+			regexEach = /^each\s+([a-zA-Z_$][0-9a-zA-Z_$]*)\s+as\s+([a-zA-Z_$][0-9a-zA-Z_$]*)\s+on\s+([a-zA-Z_$\-0-9]+)$/,
 			regexIf = /^if\s+([a-zA-Z_$][0-9a-zA-Z_$]*)\s+then\s+([a-zA-Z_$\-0-9]+)$/,
 			match;
 
