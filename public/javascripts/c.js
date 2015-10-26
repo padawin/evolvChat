@@ -64,9 +64,17 @@ loader.addModule('c', function () {
 
 		}
 		else if ((match = regexIf.exec(template)) !== null) {
-			console.log(match);
-			return function () {
-				return match;
+			// match[1] -> data to test
+			// match[3] -> template to display if the test is true
+			return function (data) {
+				var result = '', dataIf;
+				if (data[match[1]]) {
+					dataIf = {};
+					dataIf[match[1]] = data[match[1]];
+					result = c.compile(match[2], dataIf);
+				}
+
+				return result;
 			};
 		}
 		else {
