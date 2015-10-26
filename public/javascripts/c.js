@@ -18,7 +18,7 @@ loader.addModule('c', function () {
 		 * each expression on template
 		 * if expression then template
 		 */
-		var regexExpression = /^([a-zA-Z_$][0-9a-zA-Z_$]*)(?:\.([a-zA-Z_$][0-9a-zA-Z_$]*))*$/g,
+		var regexExpression = /^[a-zA-Z_$][0-9a-zA-Z_$]*(?:\.[a-zA-Z_$][0-9a-zA-Z_$]*)*$/g,
 			regexEach = /^each\s+([a-zA-Z_$][0-9a-zA-Z_$]*)\s+on\s+([a-zA-Z_$\-0-9]+)$/,
 			regexIf = /^if\s+([a-zA-Z_$][0-9a-zA-Z_$]*)\s+then\s+([a-zA-Z_$\-0-9]+)$/,
 			match;
