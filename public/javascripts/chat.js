@@ -3,8 +3,8 @@ if (typeof (require) != 'undefined') {
 }
 
 loader.executeModule('main',
-'ViewManager', 'events',
-function (ViewManager, events) {
+'ViewManager', 'B',
+function (ViewManager, B) {
 	var socketAction,
 		currentUser,
 		currentRoom,
@@ -24,7 +24,7 @@ function (ViewManager, events) {
 		}
 	};
 
-	events.on(
+	B.Events.on(
 		'login',
 		null,
 		function (nickname, room) {
@@ -68,7 +68,7 @@ function (ViewManager, events) {
 		}
 	);
 
-	events.on(
+	B.Events.on(
 		'logout',
 		null,
 		function () {

@@ -23,6 +23,8 @@ app.use(session({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/lib', express.static(__dirname + '/node_modules/Butterfly-js/dist'));
+
 // routes
 var messageRoutes = require('./routes/message')(io);
 var userRoutes = require('./routes/user')(io);
