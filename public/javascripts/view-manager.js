@@ -3,9 +3,9 @@ if (typeof (require) != 'undefined') {
 }
 
 loader.addModule('ViewManager',
-'c', 'templates', 'events',
-function (c, templates, events) {
-	c.init(templates);
+'B', 'templates',
+function (B, templates) {
+	B.Template.init(templates);
 
 	var submitLoginEvent = function (e) {
 		var nickname = B.$id('nickname').value.trim(),
@@ -31,19 +31,19 @@ function (c, templates, events) {
 		}
 
 		if (valid) {
-			events.fire('login', [nickname, room]);
+			B.Events.fire('login', [nickname, room]);
 		}
 		e.preventDefault();
 	};
 
 	return {
 		loadLogin: function () {
-			c.compile(
+			B.Template.compile(
 				'loginWindow',
 				null,
 				function (html) {
 					B.$id('main').innerHTML = html;
-					B.addEvent(B.$id('login-form'), 'submit', submitLoginEvent);
+					B.on(B.$id('login-form'), 'submit', submitLoginEvent);
 				}
 			);
 		},
@@ -56,7 +56,7 @@ function (c, templates, events) {
 		},
 		loadChatRoom: function (user, room) {
 			function initChatRoom () {
-				B.addEvent('message-button', 'click', function () {
+				B.on('message-button', 'click', function () {
 					B.Ajax.request(
 						'/api/message/' + room + '/' + user,
 						{
@@ -69,17 +69,17 @@ function (c, templates, events) {
 					);
 				});
 
-				B.addEvent('logout', 'click', function (e) {
-					events.fire('logout');
+				B.on('logout', 'click', function (e) {
+					B.Events.fire('logout');
 					e.preventDefault();
 				});
 			}
 
 			if (B.$id('login-form')) {
-				B.removeEvent(B.$id('login-form'), 'submit', submitLoginEvent);
+				B.off(B.$id('login-form'), 'submit', submitLoginEvent);
 			}
 
-			c.compile(
+			B.Template.compile(
 				'chatWindow',
 				{nickname: user},
 				function (html) {
